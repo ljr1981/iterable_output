@@ -1,3 +1,6 @@
+note
+	description: "An extension of {ARRAY2 [G]} with {READABLE_INDEXABLE_EXT} features."
+
 class
 	ARRAY2_EXT [G]
 
@@ -20,6 +23,7 @@ create
 feature {NONE} -- Initialization
 
 	make_with_rows (a_rows: ARRAY [ARRAY [G]])
+			-- Make Current with `a_rows' (i.e. array of arrays of [G]).
 		require
 			has_items: not a_rows.is_empty and then not a_rows [1].is_empty
 		do
@@ -32,6 +36,7 @@ feature {NONE} -- Initialization
 feature -- Setters
 
 	set_row (a_row: INTEGER; a_items: ARRAY [G])
+			-- Set `a_items' into Current at `a_row'.
 		require
 			has_row: a_row <= row_count
 			enough_columns: a_items.count <= column_count
@@ -44,6 +49,19 @@ feature -- Setters
 feature -- Output
 
 	out_csv: STRING
+			-- <Precursor>
+		note
+			details: "[
+				Presumes that the array may be of 2-dimensions and traverses
+				both dimensions, calling `out_csv' on each item.
+				
+				Only basic types (see `is_basic_type') are directl outputted. All
+				others are marked as "n/a", which means we have no representation
+				to present in a convenient way. If one does have a convenient
+				string output representation, then one must redefine `is_basic_type'
+				and add in the new class type to the attachment test list, such that
+				the new type will have its `out' called.
+				]"
 		do
 			create Result.make_empty
 			across

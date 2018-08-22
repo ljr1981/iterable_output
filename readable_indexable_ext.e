@@ -12,6 +12,11 @@ feature -- Queries
 
 	is_basic_type (a_item: detachable ANY): BOOLEAN
 			-- Is `a_item' an basic type?
+		note
+			to_do: "[
+				It may be we can add {JSON_VALUE} to this list when we find a way
+				to have `representation' called instead of `out'.
+				]"
 		do
 			Result := attached {STRING} a_item or else attached {STRING_8} a_item or else attached {STRING_32} a_item or else
 						attached {CHARACTER} a_item or else attached {CHARACTER_8} a_item or else attached {CHARACTER_32} a_item or else
@@ -21,7 +26,8 @@ feature -- Queries
 						attached {NATURAL_8} a_item or else attached {NATURAL_16} a_item or else attached {NATURAL_32} a_item or else
 						attached {NATURAL_64} a_item or else
 						attached {REAL} a_item or else attached {REAL_32} a_item or else attached {REAL_64} a_item or else
-						attached {DECIMAL} a_item
+						attached {DECIMAL} a_item or else
+						attached {TIME} a_item or else attached {DATE} a_item or else attached {DATE_TIME} a_item
 		end
 
 end
