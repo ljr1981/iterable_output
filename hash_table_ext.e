@@ -13,7 +13,7 @@ inherit
 create
 	make,
 	make_equal
-
+	
 feature -- Outputs
 
 	out_csv: STRING

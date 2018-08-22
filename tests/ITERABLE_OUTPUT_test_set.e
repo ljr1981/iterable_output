@@ -59,7 +59,7 @@ feature -- Tests: HASH_TABLE [G, K]
 			create l_row.make_from_array (<<"bugs", "daffy", "porky">>)
 			l_array.force (l_row, 2)
 
-			assert_strings_equal ("array_ext", "moe,curly,shemp%Nbugs,daffy,porky%N", l_array.out_csv)
+			assert_strings_equal ("hash_table_ext_1", "moe,curly,shemp%Nbugs,daffy,porky%N", l_array.out_csv)
 		end
 
 	array_ext_string_output_tests
