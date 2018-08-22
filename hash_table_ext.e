@@ -1,3 +1,6 @@
+note
+	description: "Extension of {HASH_TABLE [G, K]} with {READABLE_INDEXABLE_EXT}"
+
 class
 	HASH_TABLE_EXT [G, K -> detachable HASHABLE]
 
@@ -18,6 +21,7 @@ create
 feature {NONE} -- Initialization
 
 	make_with_rows (a_rows: ARRAY [TUPLE [values: G; key: K]])
+			-- Make Current with `a_rows' of values and a key for each.
 		do
 			make (a_rows.count)
 			across
@@ -32,22 +36,7 @@ feature -- Outputs
 	out_csv: STRING
 			-- <Precursor>
 		do
-			create Result.make_empty
-			across
-				Current as ic
-			loop
-				if attached {READABLE_INDEXABLE_EXT} ic.item as al_row then
-					Result.append_string_general (al_row.out_csv)
-				elseif is_basic_type (ic.item) and then attached ic.item as al_item then
-					Result.append_string_general (al_item.out); Result.append_character (',')
-				else
-					Result.append_string_general ("n/a"); Result.append_character (',')
-				end
-			end
-			if Result [Result.count] = ',' then
-				Result.remove_tail (1)
-				Result.append_character ('%N')
-			end
+			Result := out_csv_common
 		end
 
 end
