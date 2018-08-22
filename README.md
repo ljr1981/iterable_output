@@ -96,7 +96,12 @@ This structure being created by:
 Structures with 3 or more dimensions will not render well in the CSV style. Therefore, we need something to handle more complex structures. As a suggestion—JSON might be a more suitable representation for n-dim structures.
 
 ```
-NOTE: Each of the items in a typical n-dim structure at not named. in a 1 or 2 dimensional array, we naturally expect rows with either a single column (1-dim array) or rows and columns (2-dim array). Once we get to 3 or more dimensions, the row-column paradigm does not work well. Moreover, we lack names to identify the contents of each cell. 
+NOTE: Each of the items in a typical n-dim structure at not named. 
+In a 1 or 2 dimensional array, we naturally expect rows with either 
+a single column (1-dim array) or rows and columns (2-dim array). 
+Once we get to 3 or more dimensions, the row-column paradigm does 
+not work well. Moreover, we lack names to identify the contents 
+of each cell. 
 ```
 The JSON format wants a `key:value` pair, where our structure has the values, but lacks the keys. Therefore, a suggestion is to use numeric coordinate values concatenated together as a key. For example: `3-2-5` represents `x = 3`, `y = 2`, `z = 5`. This form of building keys for JSON can be extended and represented without technical limits (although beyond `n = 3`, the representations might become unreadable).
 
