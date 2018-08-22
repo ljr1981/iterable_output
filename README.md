@@ -8,7 +8,7 @@ We often find ourselves wanting to print out (usually for debugging purposes) a 
 
                 [“PARIS”, 'P'] [“CHICAGO”, 'C'] [“RIGA”, ‘R’] ...
 
-print (x) actually displays x.out where `out` is a STRING-returning function from class ANY which (by default) yields an internal format but may be redefined in any class. Such redefinitions exist for basic types INTEGER etc., but no one has ever taken the trouble to write some for for EiffelBase data structure classes. (I am not a Gobo user but a quick look also did not reveal such redefinitions – maybe there is something else that I missed.) 
+`print (x)` actually displays `x.out` where `out` is a STRING-returning function from class ANY which (by default) yields an internal format but may be redefined in any class. Such redefinitions exist for basic types INTEGER etc., but no one has ever taken the trouble to write some for for EiffelBase data structure classes. (I am not a Gobo user but a quick look also did not reveal such redefinitions – maybe there is something else that I missed.) 
 
 What I would find useful is the kind of above simple representation, directly adapted to the semantics of each kind of data structure as understood by their users. If I have a hash table this is how I would like to see it in the debugger, not the internal representation. (Admittedly, EiffelStudio gurus tell me they don’t care, and can read that representation.) There is a class DEBUG_OUTPUT but its idea has not been exploited much either so far.
 
@@ -20,7 +20,8 @@ Messing up right away with ANY or a core library class such as DEBUG_OUTPUT is n
 
 yielding a STRING representing my_structure if RENDERER knows about its type, otherwise defaulting to my_structure.out. In other words, output in RENDERER (ms) would be written as something like
 
-`if {ARRAY [ANY]] ms as a then
+```
+if {ARRAY [ANY]] ms as a then
 
 ... nice representation of array a ...
 
@@ -30,7 +31,8 @@ elseif {HASH_TABLE [ANY, COMPARABLE] ms as h then
 
 ...
 
-else ms.out end`
+else ms.out end
+```
 
 (This is a first cut, there may be a more clever way.) Of course this scheme does not look like the ideal OO structure but it is what you have to write if you want an outside, visitor-style mechanism that applies to various types. It  has the dual advantage of allowing several renderers (inheriting from a general RENDERER class providing defaults). Once we are happy with one of them, we can always lobby for inclusion of the best solutions as redefinitions of `out` in EiffelBase classes, restoring a textbook OO approach.
 
