@@ -261,6 +261,7 @@ feature -- Tests
 		local
 			l_array: ARRAY_EXT [ARRAY_EXT [STRING]]
 			l_row: ARRAY_EXT [STRING]
+			l_array_3: ARRAY_EXT [ARRAY [ARRAY [STRING]]]
 		do
 			create l_row.make_from_array (<<"moe", "curly", "shemp">>)
 			create l_array.make_filled (l_row, 1, 2)
@@ -268,7 +269,23 @@ feature -- Tests
 			l_array.force (l_row, 2)
 
 			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
+
+				-- N-dim (x-y-z axis) array does not present well in CSV-ish style.
+			create l_array_3.make_filled (<< <<"a", "b", "c">>, <<"x", "y">> >>, 1, 2)
+			assert_strings_equal ("array_3", array_3_string, l_array_3.out)
 		end
+
+feature {NONE} -- Support: Constants
+
+	array_3_string: STRING = "[
+a,b,c
+x,y
+a,b,c
+x,y
+
+]"
+
+feature -- Tests
 
 	array_ext_int_output_tests
 			-- Tests for ARRAY_EXT [ARRAY_EXT [INTEGER]] and variants.
