@@ -8,17 +8,19 @@ We often find ourselves wanting to print out (usually for debugging purposes) a 
 
                 [“PARIS”, 'P'] [“CHICAGO”, 'C'] [“RIGA”, ‘R’] ...
 
-`print (x)` actually displays `x.out` where `out` is a STRING-returning function from class ANY which (by default) yields an internal format but may be redefined in any class. Such redefinitions exist for basic types INTEGER etc., but no one has ever taken the trouble to write some for for EiffelBase data structure classes. (I am not a Gobo user but a quick look also did not reveal such redefinitions – maybe there is something else that I missed.) 
+`print (x)` actually displays `x.out` where `out` is a STRING-returning function from class ANY which (by default) yields an internal format but may be redefined in any class. Such redefinitions exist for basic types `INTEGER` etc., but no one has ever taken the trouble to write some for EiffelBase data structure classes. (Gobo may have something.) 
 
-What I would find useful is the kind of above simple representation, directly adapted to the semantics of each kind of data structure as understood by their users. If I have a hash table this is how I would like to see it in the debugger, not the internal representation. (Admittedly, EiffelStudio gurus tell me they don’t care, and can read that representation.) There is a class DEBUG_OUTPUT but its idea has not been exploited much either so far.
+What we might find useful is the kind of above simple representation, directly adapted to the semantics of each kind of data structure as understood by their users. If we have a hash table this is how we might like to see it in the debugger, not the internal representation. (Admittedly, EiffelStudio gurus generally say they don’t care, and can read that representation.) There is a class DEBUG_OUTPUT but its idea has not been exploited much either so far.
 
-Building such a readable representation for the major data structures in EiffelBase does not seem to be a very large effort. We are talking about maybe a dozen cases. If anyone is willing to help I’d be happy to coordinate the effort. (Let me use this opportunity to apologize for not pushing more yet on the LLVM/WebAssembly idea discussed some time ago. It is a much more ambitious project and not enough people were willing to commit the necessary resources, which is understandable. This one is much smaller.)
+Building such a readable representation for the major data structures in EiffelBase does not seem to be a very large effort. We are talking about maybe a dozen cases.
 
-Messing up right away with ANY or a core library class such as DEBUG_OUTPUT is not a good idea so as a first step I would propose a visitor-style approach, talking “about” structures from the outside rather than working inside of them. In other words, a solution such as
+Messing right away with `ANY` or a core library class such as `DEBUG_OUTPUT` is not a good idea, so as a first step we might propose a visitor-style approach, talking “about” structures from the outside rather than working inside of them. In other words, a solution such as
 
-`{RENDERER}.output (my_structure)`
+```
+{RENDERER}.output (my_structure)
+```
 
-yielding a STRING representing my_structure if RENDERER knows about its type, otherwise defaulting to my_structure.out. In other words, output in RENDERER (ms) would be written as something like
+yielding a `STRING` representing `my_structure` if `RENDERER` knows about its type, otherwise defaulting to `my_structure.out`. In other words, output in `RENDERER (ms)` would be written as something like:
 
 ```
 if {ARRAY [ANY]] ms as a then
@@ -38,11 +40,7 @@ else ms.out end
 
 In my opinion the representations, as with the hash table representation above, should  be terse and as much as possible use symbols rather than words, to avoid having to worry about translation into various human languages.
 
-I think having such code would be useful. This is not a major endeavor but it will proceed faster if a few people help. This would mean taking up a couple of example structures, telling me about it, and within a month or so (let’s say August 31) sending me the corresponding branches of the above conditional, with examples and test results. I am happy to do HASH_TABLE and provide it as a guideline for others.
-
-Thanks,
-
--- BM
+Perhaps having such code would be useful. This is not a major endeavor but it will proceed faster if a few people help. This would mean taking up a couple of example structures, telling us about it, and within a month or so (let’s say August 31) sending the corresponding branches of the above, with examples and test results.
 
 ## Extended Classes
 
