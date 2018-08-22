@@ -33,7 +33,13 @@ feature -- Tests
 						<<"curly", 200, create {DATE}.make (2018, 1, 2)>>,
 						<<"shemp", 300, create {DATE}.make (2018, 1, 3)>>
 						>>)
-			assert_strings_equal ("multi_type_out", "moe,100,01/01/2018%Ncurly,200,01/02/2018%Nshemp,300,01/03/2018%N", l_array2_any.out_csv)
+			assert_strings_equal ("multi_type_out_1", "moe,100,01/01/2018%Ncurly,200,01/02/2018%Nshemp,300,01/03/2018%N", l_array2_any.out_csv)
+			create l_array2_any.make_with_rows (<<
+						<<create {DATE}.make (2018, 1, 1), "moe", 100>>,
+						<<200, "curly", create {DATE}.make (2018, 1, 2)>>,
+						<<"shemp", 300, create {DATE}.make (2018, 1, 3)>>
+						>>)
+			assert_strings_equal ("multi_type_out_2", "01/01/2018,moe,100%N200,curly,01/02/2018%Nshemp,300,01/03/2018%N", l_array2_any.out_csv)
 		end
 
 	array2_output_tests
