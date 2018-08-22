@@ -4,12 +4,14 @@ deferred class
 feature -- Output
 
 	out_csv: STRING
+			-- Output of Current in CSV format.
 		deferred
 		end
 
 feature -- Queries
 
 	is_basic_type (a_item: detachable ANY): BOOLEAN
+			-- Is `a_item' an basic type?
 		do
 			Result := attached {STRING} a_item or else attached {STRING_8} a_item or else attached {STRING_32} a_item or else
 						attached {CHARACTER} a_item or else attached {CHARACTER_8} a_item or else attached {CHARACTER_32} a_item or else
