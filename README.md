@@ -60,3 +60,35 @@ READABLE_INDEXABLE_EXT
 Each class having an `_EXT` suffix denotes the class offers extended or redefined features from its ancestor. For example: The `ARRAY2_EXT [G]` class inherits from `ARRAY2 [G]` and "extends" by either the facilities of `READABLE_INDEXABLE_EXT` or the features directly on the `ARRAY2_EXT [G]` class itself. Moreover—the `ARRAY2_EXT [G]` class adds convenience creation procedures as well as a specialized version of the `out` feature. 
 
 Please explore the `?_EXT` classes and the `READABLE_INDEXABLE_EXT` class, specifically.
+
+## Output Style
+
+Presently, the `out` feature aims to output an n-dim array (usually n = 1 or n = 2) in a CSV-ish format. Data from `my_structure.out` might look something like:
+
+```
+moe,100,01/01/2018
+curly,200,01/02/2018
+shemp,300,01/03/2018
+```
+This structure being created by:
+
+```
+			create {ARRAY2_EXT [ANY]}.make_with_rows (<<
+						<<"moe", 100, create {DATE}.make (2018, 1, 1)>>,
+						<<"curly", 200, create {DATE}.make (2018, 1, 2)>>,
+						<<"shemp", 300, create {DATE}.make (2018, 1, 3)>>
+						>>)
+```
+
+Another example might be:
+```
+101,102,103
+201,202,203
+```
+This structure being created by:
+```
+			create {LINKED_LIST_EXT [ANY]}.make_with_rows (<<
+						<<101, 102, 103>>,
+						<<201, 202, 203>>
+					>>)
+```
