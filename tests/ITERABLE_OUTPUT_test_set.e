@@ -24,6 +24,7 @@ inherit
 feature -- Tests: HASH_TABLE [G, K]
 
 	array2_output_tests
+			-- Tests of {ARRAY2_EXT [G]}
 		local
 			l_array2_string: ARRAY2_EXT [STRING]
 			l_array2_integer: ARRAY2_EXT [INTEGER]
@@ -44,6 +45,21 @@ feature -- Tests: HASH_TABLE [G, K]
 							<<150.4, 250.5, 350.6>>
 						>>)
 			assert_strings_equal ("array_ext", "100.1,200.2,300.3%N150.4,250.5,350.6%N", l_array2_real.out_csv)
+		end
+
+	hash_table_ext_string_output_tests
+			-- Tests for HASH_TABLE_EXT [ARRAY_EXT [STRING]]
+		local
+			l_array: HASH_TABLE_EXT [ARRAY_EXT [STRING], INTEGER]
+			l_row: ARRAY_EXT [STRING]
+		do
+			create l_array.make (2)
+			create l_row.make_from_array (<<"moe", "curly", "shemp">>)
+			l_array.force (l_row, 1)
+			create l_row.make_from_array (<<"bugs", "daffy", "porky">>)
+			l_array.force (l_row, 2)
+
+			assert_strings_equal ("array_ext", "moe,curly,shemp%Nbugs,daffy,porky%N", l_array.out_csv)
 		end
 
 	array_ext_string_output_tests
