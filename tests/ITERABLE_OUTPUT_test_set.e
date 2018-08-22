@@ -50,14 +50,11 @@ feature -- Tests: HASH_TABLE [G, K]
 	hash_table_ext_string_output_tests
 			-- Tests for HASH_TABLE_EXT [ARRAY_EXT [STRING]]
 		local
-			l_array: HASH_TABLE_EXT [ARRAY_EXT [STRING], INTEGER]
-			l_row: ARRAY_EXT [STRING]
+			l_array: HASH_TABLE_EXT [ARRAY [STRING], INTEGER]
 		do
 			create l_array.make (2)
-			create l_row.make_from_array (<<"moe", "curly", "shemp">>)
-			l_array.force (l_row, 1)
-			create l_row.make_from_array (<<"bugs", "daffy", "porky">>)
-			l_array.force (l_row, 2)
+			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 1)
+			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 2)
 
 			assert_strings_equal ("hash_table_ext_1", "moe,curly,shemp%Nbugs,daffy,porky%N", l_array.out_csv)
 		end
