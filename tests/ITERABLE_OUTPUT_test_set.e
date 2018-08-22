@@ -92,6 +92,12 @@ feature -- Tests
 			l_list_any.put_front (101)
 			l_list_any.put_front (create {DATE}.make (2018, 1, 10))
 			assert_strings_equal ("list_any_1", "01/10/2018,101,blah1%N", l_list_any.out)
+
+			create l_list_any.make_with_rows (<<
+						<<101, 102, 103>>,
+						<<201, 202, 203>>
+					>>)
+			assert_strings_equal ("list_any_2", linked_list_string_3, l_list_any.out)
 		end
 
 feature {NONE} -- Test Support: Constants
@@ -104,6 +110,12 @@ feature {NONE} -- Test Support: Constants
 
 	linked_list_string_2: STRING = "[
 203,202,201,103,102,101
+
+]"
+
+	linked_list_string_3: STRING = "[
+101,102,103
+201,202,203
 
 ]"
 
@@ -120,20 +132,25 @@ feature -- Tests
 			l_stack.force (create {ARRAY_EXT [ANY]}.make_from_array (<<100, "blah1", 20.1>>))
 			l_stack.force (create {ARRAY_EXT [ANY]}.make_from_array (<<200, "blah2", 20.2>>))
 
-			assert_strings_equal ("stack_1", stack_string_1, l_stack.out)
+			assert_strings_equal ("stack_test_1", stack_string_1, l_stack.out)
 
 			create l_stack_plain.make (2)
 			l_stack_plain.force (<<100, "blah1", 20.1>>)
 			l_stack_plain.force (<<200, "blah2", 20.2>>)
-
-			assert_strings_equal ("stack_2", stack_string_1, l_stack_plain.out)
+			assert_strings_equal ("stack_test_2", stack_string_1, l_stack_plain.out)
 
 			create l_stack_any.make (2)
 			l_stack_any.force (create {DATE}.make (2018, 5, 15))
 			l_stack_any.force ("blah1")
 			l_stack_any.force (200)
 			l_stack_any.force (200.99)
-			assert_strings_equal ("stack_3", "05/15/2018,blah1,200,200.99000000000001%N", l_stack_any.out)
+			assert_strings_equal ("stack_test_3", "05/15/2018,blah1,200,200.99000000000001%N", l_stack_any.out)
+
+			create l_stack_plain.make_with_rows (<<
+							<<100, "blah1", 20.1>>,
+							<<200, "blah2", 20.2>>
+						>>)
+			assert_strings_equal ("stack_test_4", stack_string_1, l_stack_plain.out)
 		end
 
 feature {NONE} -- Test Support: Constants

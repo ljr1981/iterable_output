@@ -7,7 +7,7 @@ class
 inherit
 	HASH_TABLE [G, K]
 		undefine
-			out
+			out -- Use `out' from {READABLE_INDEXABLE_EXT}
 		end
 
 	READABLE_INDEXABLE_EXT

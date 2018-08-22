@@ -21,12 +21,12 @@ feature -- Output
 				dimensions are of type {READABLE_INDEXABLE_EXT}. If so, it traverses
 				down the dimensions, calling `out_csv' on each one.
 				
-				Only basic types (see `is_basic_type') are directl outputted. All
-				others are marked as "n/a", which means we have no representation
-				to present in a convenient way. If one does have a convenient
-				string output representation, then one must redefine `is_basic_type'
-				and add in the new class type to the attachment test list, such that
-				the new type will have its `out' called.
+				Only basic types (see `is_basic_type') are directly outputted. All
+				others are marked as "n/a", which means we have no convenient representation.
+				If one does have a convenient string output representation, then 
+				one must redefine `is_basic_type' and add in the new class type to 
+				the attachment test list, such that the new type will have its 
+				`out' called.
 				]"
 		do
 			create Result.make_empty
@@ -36,6 +36,7 @@ feature -- Output
 				loop
 					if attached {READABLE_INDEXABLE_EXT} ic.item as al_row then
 						Result.append_string_general (al_row.out)
+						-- Plain ole READABLE_INDEXABLE things might possibly be converted and output.
 					elseif attached {READABLE_INDEXABLE [ANY]} ic.item as al_row then
 						if attached {ARRAY2 [ANY]} al_row as al_item then
 							Result.append_string_general (array2_ext_from_array2 (al_item).out)
@@ -51,13 +52,13 @@ feature -- Output
 							Result.append_string_general (string_table_ext_from_string_table (al_item).out)
 						elseif is_basic_type (ic.item) and then attached ic.item as al_item then
 							Result.append_string_general (al_item.out); Result.append_character (',')
-						else
+						else -- Otherwise, we don't know, but want to be aware!
 							Result.append_string_general ("n/a"); Result.append_character (',')
-							check uknown_condition: False end
+							check unknown_condition: False end
 						end
 					elseif is_basic_type (ic.item) and then attached ic.item as al_item then
 						Result.append_string_general (al_item.out); Result.append_character (',')
-					else
+					else -- Otherwise, we don't want complex outputs.
 						Result.append_string_general ("n/a"); Result.append_character (',')
 					end
 				end

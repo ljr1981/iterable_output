@@ -7,7 +7,7 @@ class
 inherit
 	ARRAY [G]
 		undefine
-			out
+			out -- Use `out' from {READABLE_INDEXABLE_EXT}
 		end
 
 	READABLE_INDEXABLE_EXT
@@ -17,6 +17,15 @@ inherit
 		end
 
 create
-	make, make_empty, make_filled, make_from_array, make_from_cil, make_from_special
+	make, make_empty, make_filled, make_from_array, make_from_cil, make_from_special,
+	make_with_rows
+
+feature {NONE} -- Implementation
+
+	make_with_rows (a_rows: ARRAY [G])
+			-- See also: `make_from_array'
+		do
+			make_from_array (a_rows)
+		end
 
 end

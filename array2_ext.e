@@ -10,7 +10,7 @@ inherit
 			height as row_count,
 			width as column_count
 		undefine
-			out
+			out -- Use `out' from {READABLE_INDEXABLE_EXT}
 		end
 
 	READABLE_INDEXABLE_EXT
@@ -18,15 +18,30 @@ inherit
 			is_equal,
 			copy
 		redefine
-			out
+			out --due to 2-dim specialization requirements
 		end
 
 create
-	make, make_filled, make_with_rows, make_from_array2
+	make, make_filled,
+	make_with_rows, make_from_array2
 
 feature {NONE} -- Initialization
 
+	make_with_rows (a_rows: ARRAY [ARRAY [G]])
+			-- Make Current with `a_rows' (i.e. array of arrays of [G]).
+		do
+			if not a_rows.is_empty then
+				make_filled (a_rows [1] [1], a_rows.count, a_rows [1].count)
+				across a_rows as ic loop
+					set_row (ic.cursor_index, ic.item)
+				end
+			else
+				make_empty
+			end
+		end
+
 	make_from_array2 (a_item: ARRAY2 [G])
+			-- Make Current from {ARRAY2} `a_item'.
 		do
 			make_empty
 			across
@@ -37,17 +52,6 @@ feature {NONE} -- Initialization
 				loop
 					force (a_item [ic_row.item, ic_col.item], ic_row.item, ic_col.item)
 				end
-			end
-		end
-
-	make_with_rows (a_rows: ARRAY [ARRAY [G]])
-			-- Make Current with `a_rows' (i.e. array of arrays of [G]).
-		require
-			has_items: not a_rows.is_empty and then not a_rows [1].is_empty
-		do
-			make_filled (a_rows [1] [1], a_rows.count, a_rows [1].count)
-			across a_rows as ic loop
-				set_row (ic.cursor_index, ic.item)
 			end
 		end
 
@@ -70,15 +74,9 @@ feature -- Output
 			-- <Precursor>
 		note
 			details: "[
-				Presumes that the array may be of 2-dimensions and traverses
-				both dimensions, calling `out_csv' on each item.
-				
-				Only basic types (see `is_basic_type') are directl outputted. All
-				others are marked as "n/a", which means we have no representation
-				to present in a convenient way. If one does have a convenient
-				string output representation, then one must redefine `is_basic_type'
-				and add in the new class type to the attachment test list, such that
-				the new type will have its `out' called.
+				The common redefinition of `out' will not work for ARRAY2.
+				So, we redefine it and reimplement it with the specialized
+				knowledge of always having 2 dimensions (rows and columns).
 				]"
 		do
 			create Result.make_empty
