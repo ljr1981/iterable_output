@@ -1,5 +1,6 @@
 note
 	description: "Abstract notion of extension to {READABLE_INDEXABLE} things."
+	
 deferred class
 	READABLE_INDEXABLE_EXT
 
