@@ -22,17 +22,7 @@ feature -- Output
 			across
 				1 |..| count as ic
 			loop
-				if attached {ARRAY_EXT [STRING]} item (ic.item) as al_row then
-					Result.append_string_general (al_row.out_csv)
-				elseif attached {ARRAY_EXT [CHARACTER]} item (ic.item) as al_row then
-					Result.append_string_general (al_row.out_csv)
-				elseif attached {ARRAY_EXT [INTEGER]} item (ic.item) as al_row then
-					Result.append_string_general (al_row.out_csv)
-				elseif attached {ARRAY_EXT [NATURAL]} item (ic.item) as al_row then
-					Result.append_string_general (al_row.out_csv)
-				elseif attached {ARRAY_EXT [REAL]} item (ic.item) as al_row then
-					Result.append_string_general (al_row.out_csv)
-				elseif attached {ARRAY_EXT [DECIMAL]} item (ic.item) as al_row then
+				if attached {READABLE_INDEXABLE_EXT} item (ic.item) as al_row then
 					Result.append_string_general (al_row.out_csv)
 				elseif is_basic_type (item (ic.item)) and then attached item (ic.item) as al_item then
 					Result.append_string_general (al_item.out); Result.append_character (',')
