@@ -42,6 +42,8 @@ feature -- Tests
 			assert_strings_equal ("multi_type_out_2", array2_multi_type_output_string_2, l_array2_any.out)
 		end
 
+feature {NONE} -- Test Support: Constants
+
 	array2_multi_type_output_string_1: STRING = "[
 moe,100,01/01/2018
 curly,200,01/02/2018
@@ -55,6 +57,8 @@ shemp,300,01/03/2018
 shemp,300,01/03/2018
 
 ]"
+
+feature -- Tests
 
 	linked_list_ext_tests
 			--
@@ -90,6 +94,8 @@ shemp,300,01/03/2018
 			assert_strings_equal ("list_any_1", "01/10/2018,101,blah1%N", l_list_any.out)
 		end
 
+feature {NONE} -- Test Support: Constants
+
 	linked_list_string_1: STRING = "[
 201,202,203
 101,102,103
@@ -101,8 +107,10 @@ shemp,300,01/03/2018
 
 ]"
 
+feature -- Tests
+
 	arrayed_stack_ext_tests
-			--
+			-- Testing of ARRAYED_STACK_EXT and variants.
 		local
 			l_stack: ARRAYED_STACK_EXT [ARRAY_EXT [ANY]]
 			l_stack_plain: ARRAYED_STACK_EXT [ARRAY [ANY]]
@@ -128,6 +136,8 @@ shemp,300,01/03/2018
 			assert_strings_equal ("stack_3", "05/15/2018,blah1,200,200.99000000000001%N", l_stack_any.out)
 		end
 
+feature {NONE} -- Test Support: Constants
+
 	stack_string_1: STRING = "[
 100,blah1,20.100000000000001
 200,blah2,20.199999999999999
@@ -140,8 +150,10 @@ shemp,300,01/03/2018
 
 		end
 
+feature -- Tests
+
 	array2_output_tests
-			-- Tests of {ARRAY2_EXT [G]}
+			-- Tests of {ARRAY2_EXT [G]} and variants.
 		local
 			l_array2_string: ARRAY2_EXT [STRING]
 			l_array2_integer: ARRAY2_EXT [INTEGER]
@@ -164,6 +176,8 @@ shemp,300,01/03/2018
 			assert_strings_equal ("array_ext_3", array_ext_3_string, l_array2_real.out)
 		end
 
+feature {NONE} -- Test Support: Constants
+
 	array_ext_1_string: STRING = "[
 moe,curly,shemp
 bugs,daffy,porky
@@ -182,8 +196,10 @@ bugs,daffy,porky
 
 ]"
 
+feature -- Tests
+
 	hash_table_ext_string_output_tests
-			-- Tests for HASH_TABLE_EXT [ARRAY_EXT [STRING]]
+			-- Tests for HASH_TABLE_EXT [ARRAY_EXT [STRING]] and variants.
 		local
 			l_array: HASH_TABLE_EXT [ARRAY [STRING], INTEGER]
 		do
@@ -204,7 +220,7 @@ bugs,daffy,porky
 		end
 
 	arrayed_list_ext_string_output_tests
-			-- Tests for ARRAYED_LIST_EXT [ARRAY_EXT [STRING]]
+			-- Tests for ARRAYED_LIST_EXT [ARRAY_EXT [STRING]] and variants.
 		local
 			l_array: ARRAYED_LIST_EXT [ARRAY_EXT [STRING]]
 			l_row: ARRAY_EXT [STRING]
@@ -224,7 +240,7 @@ bugs,daffy,porky
 		end
 
 	array_ext_string_output_tests
-			-- Tests for ARRAY_EXT [ARRAY_EXT [STRING]]
+			-- Tests for ARRAY_EXT [ARRAY_EXT [STRING]] and variants.
 		local
 			l_array: ARRAY_EXT [ARRAY_EXT [STRING]]
 			l_row: ARRAY_EXT [STRING]
@@ -238,7 +254,7 @@ bugs,daffy,porky
 		end
 
 	array_ext_int_output_tests
-			-- Tests for ARRAY_EXT [ARRAY_EXT [INTEGER]]
+			-- Tests for ARRAY_EXT [ARRAY_EXT [INTEGER]] and variants.
 		local
 			l_array: ARRAY_EXT [ARRAY_EXT [INTEGER_32]]
 			l_row: ARRAY_EXT [INTEGER_32]
@@ -252,7 +268,7 @@ bugs,daffy,porky
 		end
 
 	array_ext_real_output_tests
-			-- Tests for ARRAY_EXT [ARRAY_EXT [REAL]]
+			-- Tests for ARRAY_EXT [ARRAY_EXT [REAL]] and variants.
 		local
 			l_array: ARRAY_EXT [ARRAY_EXT [REAL]]
 			l_row: ARRAY_EXT [REAL]
