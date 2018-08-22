@@ -1,5 +1,5 @@
 note
-	description: "Tests of {ITERABLE_OUTPUT}."
+	description: "Tests of Iterable Output."
 	testing: "type/manual"
 
 class

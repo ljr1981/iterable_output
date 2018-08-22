@@ -36,9 +36,6 @@ feature -- Output
 				loop
 					if attached {READABLE_INDEXABLE_EXT} ic.item as al_row then
 						Result.append_string_general (al_row.out)
-					elseif is_basic_type (ic.item) and then attached ic.item as al_item then
-						Result.append_string_general (al_item.out); Result.append_character (',')
-						-- Convert known collections into analogous ?_EXT objects in order to `out' them as Current.
 					elseif attached {READABLE_INDEXABLE [ANY]} ic.item as al_row then
 						if attached {ARRAY2 [ANY]} al_row as al_item then
 							Result.append_string_general (array2_ext_from_array2 (al_item).out)
@@ -52,7 +49,11 @@ feature -- Output
 							Result.append_string_general (hash_table_ext_from_hash_table (al_item).out)
 						elseif attached {STRING_TABLE [ANY]} al_row as al_item then
 							Result.append_string_general (string_table_ext_from_string_table (al_item).out)
+						elseif is_basic_type (ic.item) and then attached ic.item as al_item then
+							Result.append_string_general (al_item.out); Result.append_character (',')
 						end
+					elseif is_basic_type (ic.item) and then attached ic.item as al_item then
+						Result.append_string_general (al_item.out); Result.append_character (',')
 					else
 						Result.append_string_general ("n/a"); Result.append_character (',')
 					end
