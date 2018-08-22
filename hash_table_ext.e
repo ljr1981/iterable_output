@@ -12,8 +12,21 @@ inherit
 
 create
 	make,
-	make_equal
-	
+	make_equal,
+	make_with_rows
+
+feature {NONE} -- Initialization
+
+	make_with_rows (a_rows: ARRAY [TUPLE [values: G; key: K]])
+		do
+			make (a_rows.count)
+			across
+				a_rows as ic
+			loop
+				force (ic.item.values, ic.item.key)
+			end
+		end
+
 feature -- Outputs
 
 	out_csv: STRING
