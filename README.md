@@ -103,5 +103,5 @@ Once we get to 3 or more dimensions, the row-column paradigm does
 not work well. Moreover, we lack names to identify the contents 
 of each cell. 
 ```
-The JSON format wants a `key:value` pair, where our structure has the values, but lacks the keys. Therefore, a suggestion is to use numeric coordinate values concatenated together as a key. For example: `3-2-5` represents `x = 3`, `y = 2`, `z = 5`. This form of building keys for JSON can be extended and represented without technical limits (although beyond `n = 3`, the representations might become unreadable).
+The JSON format wants a `key:value` pair, and our structure has the values, but lacks keys. Therefore, we might use numeric coordinate values concatenated together as a key. For example: `3-2-5` represents `x = 3`, `y = 2`, `z = 5`. This form of building keys for JSON can be extended and represented without technical limits (although beyond `n = 3`, the representations might become unreadable).
 
