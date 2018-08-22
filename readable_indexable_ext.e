@@ -51,6 +51,9 @@ feature -- Output
 							Result.append_string_general (string_table_ext_from_string_table (al_item).out)
 						elseif is_basic_type (ic.item) and then attached ic.item as al_item then
 							Result.append_string_general (al_item.out); Result.append_character (',')
+						else
+							Result.append_string_general ("n/a"); Result.append_character (',')
+							check uknown_condition: False end
 						end
 					elseif is_basic_type (ic.item) and then attached ic.item as al_item then
 						Result.append_string_general (al_item.out); Result.append_character (',')
