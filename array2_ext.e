@@ -22,9 +22,23 @@ inherit
 		end
 
 create
-	make, make_filled, make_with_rows
+	make, make_filled, make_with_rows, make_from_array2
 
 feature {NONE} -- Initialization
+
+	make_from_array2 (a_item: ARRAY2 [G])
+		do
+			make_empty
+			across
+				1 |..| a_item.height as ic_row
+			loop
+				across
+					1 |..| a_item.width as ic_col
+				loop
+					force (a_item [ic_row.item, ic_col.item], ic_row.item, ic_col.item)
+				end
+			end
+		end
 
 	make_with_rows (a_rows: ARRAY [ARRAY [G]])
 			-- Make Current with `a_rows' (i.e. array of arrays of [G]).

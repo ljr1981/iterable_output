@@ -56,6 +56,90 @@ shemp,300,01/03/2018
 
 ]"
 
+	linked_list_ext_tests
+			--
+		local
+			l_list: LINKED_LIST_EXT [ARRAY_EXT [INTEGER]]
+			l_list_1_col: LINKED_LIST_EXT [INTEGER]
+			l_list_plain: LINKED_LIST_EXT [ARRAY [INTEGER]]
+			l_list_any: LINKED_LIST_EXT [ANY]
+		do
+			create l_list.make
+			l_list.put_front (create {ARRAY_EXT [INTEGER]}.make_from_array (<<101, 102, 103>>))
+			l_list.put_front (create {ARRAY_EXT [INTEGER]}.make_from_array (<<201, 202, 203>>))
+			assert_strings_equal ("linked_list_1", linked_list_string_1, l_list.out)
+
+			create l_list_1_col.make
+			l_list_1_col.put_front (101)
+			l_list_1_col.put_front (102)
+			l_list_1_col.put_front (103)
+			l_list_1_col.put_front (201)
+			l_list_1_col.put_front (202)
+			l_list_1_col.put_front (203)
+			assert_strings_equal ("linked_list_2", linked_list_string_2, l_list_1_col.out)
+
+			create l_list_plain.make
+			l_list_plain.put_front (<<101, 102, 103>>)
+			l_list_plain.put_front (<<201, 202, 203>>)
+			assert_strings_equal ("linked_list_3", linked_list_string_1, l_list_plain.out)
+
+			create l_list_any.make
+			l_list_any.put_front ("blah1")
+			l_list_any.put_front (101)
+			l_list_any.put_front (create {DATE}.make (2018, 1, 10))
+			assert_strings_equal ("list_any_1", "01/10/2018,101,blah1%N", l_list_any.out)
+		end
+
+	linked_list_string_1: STRING = "[
+201,202,203
+101,102,103
+
+]"
+
+	linked_list_string_2: STRING = "[
+203,202,201,103,102,101
+
+]"
+
+	arrayed_stack_ext_tests
+			--
+		local
+			l_stack: ARRAYED_STACK_EXT [ARRAY_EXT [ANY]]
+			l_stack_plain: ARRAYED_STACK_EXT [ARRAY [ANY]]
+			l_stack_any: ARRAYED_STACK_EXT [ANY]
+		do
+			create l_stack.make (2)
+			l_stack.force (create {ARRAY_EXT [ANY]}.make_from_array (<<100, "blah1", 20.1>>))
+			l_stack.force (create {ARRAY_EXT [ANY]}.make_from_array (<<200, "blah2", 20.2>>))
+
+			assert_strings_equal ("stack_1", stack_string_1, l_stack.out)
+
+			create l_stack_plain.make (2)
+			l_stack_plain.force (<<100, "blah1", 20.1>>)
+			l_stack_plain.force (<<200, "blah2", 20.2>>)
+
+			assert_strings_equal ("stack_2", stack_string_1, l_stack_plain.out)
+
+			create l_stack_any.make (2)
+			l_stack_any.force (create {DATE}.make (2018, 5, 15))
+			l_stack_any.force ("blah1")
+			l_stack_any.force (200)
+			l_stack_any.force (200.99)
+			assert_strings_equal ("stack_3", "05/15/2018,blah1,200,200.99000000000001%N", l_stack_any.out)
+		end
+
+	stack_string_1: STRING = "[
+100,blah1,20.100000000000001
+200,blah2,20.199999999999999
+
+]"
+
+	string_table_ext_tests
+			--
+		do
+
+		end
+
 	array2_output_tests
 			-- Tests of {ARRAY2_EXT [G]}
 		local
