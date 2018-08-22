@@ -69,7 +69,7 @@ feature -- Tests: HASH_TABLE [G, K]
 		end
 
 	arrayed_list_ext_string_output_tests
-			-- Tests for ARRAY_EXT [ARRAY_EXT [STRING]]
+			-- Tests for ARRAYED_LIST_EXT [ARRAY_EXT [STRING]]
 		local
 			l_array: ARRAYED_LIST_EXT [ARRAY_EXT [STRING]]
 			l_row: ARRAY_EXT [STRING]
