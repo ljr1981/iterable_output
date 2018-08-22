@@ -38,7 +38,7 @@ else ms.out end
 
 (This is a first cut, there may be a more clever way.) Of course this scheme does not look like the ideal OO structure but it is what you have to write if you want an outside, visitor-style mechanism that applies to various types. It  has the dual advantage of allowing several renderers (inheriting from a general RENDERER class providing defaults). Once we are happy with one of them, we can always lobby for inclusion of the best solutions as redefinitions of `out` in EiffelBase classes, restoring a textbook OO approach.
 
-In my opinion the representations, as with the hash table representation above, should  be terse and as much as possible use symbols rather than words, to avoid having to worry about translation into various human languages.
+The representations, as with the hash table representation above, should  be terse and as much as possible use symbols rather than words, to avoid having to worry about translation into various human languages.
 
 Perhaps having such code would be useful. This is not a major endeavor but it will proceed faster if a few people help. This would mean taking up a couple of example structures, telling us about it, and within a month or so (let’s say August 31) sending the corresponding branches of the above, with examples and test results.
 
