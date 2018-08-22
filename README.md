@@ -44,7 +44,7 @@ Perhaps having such code would be useful. This is not a major endeavor but it wi
 
 ## Extended Classes
 
-The following classes are included in the extension, which provides a new `out` feature.
+The following classes are included in this library, which provides a new `out` feature.
 
 ```
 READABLE_INDEXABLE_EXT
