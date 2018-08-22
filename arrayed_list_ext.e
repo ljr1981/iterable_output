@@ -6,7 +6,10 @@ class
 
 inherit
 	ARRAYED_LIST [G]
-
+		undefine
+			print
+		end
+		
 	READABLE_INDEXABLE_EXT
 		undefine
 			is_equal,

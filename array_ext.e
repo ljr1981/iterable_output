@@ -6,6 +6,9 @@ class
 
 inherit
 	ARRAY [G]
+		undefine
+			print
+		end
 
 	READABLE_INDEXABLE_EXT
 		undefine

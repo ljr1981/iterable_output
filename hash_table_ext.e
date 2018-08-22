@@ -6,7 +6,10 @@ class
 
 inherit
 	HASH_TABLE [G, K]
-
+		undefine
+			print
+		end
+		
 	READABLE_INDEXABLE_EXT
 		undefine
 			is_equal,

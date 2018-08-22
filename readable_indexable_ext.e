@@ -1,10 +1,24 @@
 note
 	description: "Abstract notion of extension to {READABLE_INDEXABLE} things."
-	
+
 deferred class
 	READABLE_INDEXABLE_EXT
 
+inherit
+	ANY
+		redefine
+			print
+		end
+
 feature -- Output
+
+	print (x: detachable ANY)
+			-- <Precursor>
+		do
+			if attached {READABLE_INDEXABLE_EXT} x as al_item then
+				print (al_item.out_csv_common)
+			end
+		end
 
 	out_csv: STRING
 			-- Output of Current in CSV format.

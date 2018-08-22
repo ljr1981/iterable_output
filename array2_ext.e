@@ -9,6 +9,8 @@ inherit
 		rename
 			height as row_count,
 			width as column_count
+		undefine
+			print
 		end
 
 	READABLE_INDEXABLE_EXT
