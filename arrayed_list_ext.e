@@ -7,9 +7,9 @@ class
 inherit
 	ARRAYED_LIST [G]
 		undefine
-			print
+			out
 		end
-		
+
 	READABLE_INDEXABLE_EXT
 		undefine
 			is_equal,
@@ -30,14 +30,6 @@ feature {NONE} -- Initialization
 			across a_rows as ic loop
 				force (ic.item)
 			end
-		end
-
-feature -- Output
-
-	out_csv: STRING
-			-- <Precursor>
-		do
-			Result := out_csv_common
 		end
 
 end

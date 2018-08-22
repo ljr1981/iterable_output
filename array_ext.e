@@ -7,7 +7,7 @@ class
 inherit
 	ARRAY [G]
 		undefine
-			print
+			out
 		end
 
 	READABLE_INDEXABLE_EXT
@@ -18,13 +18,5 @@ inherit
 
 create
 	make, make_empty, make_filled, make_from_array, make_from_cil, make_from_special
-
-feature -- Output
-
-	out_csv: STRING
-			-- Current output as CSV
-		do
-			Result := out_csv_common
-		end
 
 end

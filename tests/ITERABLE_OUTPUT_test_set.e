@@ -33,13 +33,13 @@ feature -- Tests
 						<<"curly", 200, create {DATE}.make (2018, 1, 2)>>,
 						<<"shemp", 300, create {DATE}.make (2018, 1, 3)>>
 						>>)
-			assert_strings_equal ("multi_type_out_1", array2_multi_type_output_string_1, l_array2_any.out_csv)
+			assert_strings_equal ("multi_type_out_1", array2_multi_type_output_string_1, l_array2_any.out)
 			create l_array2_any.make_with_rows (<<
 						<<create {DATE}.make (2018, 1, 1), "moe", 100>>,
 						<<200, "curly", create {DATE}.make (2018, 1, 2)>>,
 						<<"shemp", 300, create {DATE}.make (2018, 1, 3)>>
 						>>)
-			assert_strings_equal ("multi_type_out_2", array2_multi_type_output_string_2, l_array2_any.out_csv)
+			assert_strings_equal ("multi_type_out_2", array2_multi_type_output_string_2, l_array2_any.out)
 		end
 
 	array2_multi_type_output_string_1: STRING = "[
@@ -67,17 +67,17 @@ shemp,300,01/03/2018
 							<<"moe", "curly", "shemp">>,
 							<<"bugs", "daffy", "porky">>
 						>>)
-			assert_strings_equal ("array_ext_1", array_ext_1_string, l_array2_string.out_csv)
+			assert_strings_equal ("array_ext_1", array_ext_1_string, l_array2_string.out)
 			create l_array2_integer.make_with_rows (<<
 							<<100, 200, 300>>,
 							<<150, 250, 350>>
 						>>)
-			assert_strings_equal ("array_ext_2", array_ext_2_string, l_array2_integer.out_csv)
+			assert_strings_equal ("array_ext_2", array_ext_2_string, l_array2_integer.out)
 			create l_array2_real.make_with_rows (<<
 							<<100.1, 200.2, 300.3>>,
 							<<150.4, 250.5, 350.6>>
 						>>)
-			assert_strings_equal ("array_ext_3", array_ext_3_string, l_array2_real.out_csv)
+			assert_strings_equal ("array_ext_3", array_ext_3_string, l_array2_real.out)
 		end
 
 	array_ext_1_string: STRING = "[
@@ -107,7 +107,7 @@ bugs,daffy,porky
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 1)
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 2)
 
-			assert_strings_equal ("hash_table_ext_1", array_ext_1_string, l_array.out_csv)
+			assert_strings_equal ("hash_table_ext_1", array_ext_1_string, l_array.out)
 
 				-- The convenience feature removes the need to call force multiple times and introduces
 				-- the capacity for loading it with arrays + keys.
@@ -116,7 +116,7 @@ bugs,daffy,porky
 							[create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 2]
 						>>)
 
-			assert_strings_equal ("hash_table_ext_2", array_ext_1_string, l_array.out_csv)
+			assert_strings_equal ("hash_table_ext_2", array_ext_1_string, l_array.out)
 		end
 
 	arrayed_list_ext_string_output_tests
@@ -129,14 +129,14 @@ bugs,daffy,porky
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>))
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>))
 
-			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out_csv)
+			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
 
 			create l_array.make_with_rows (<<
 						create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>),
 						create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>)
 						>>)
 
-			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out_csv)
+			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
 		end
 
 	array_ext_string_output_tests
@@ -150,7 +150,7 @@ bugs,daffy,porky
 			create l_row.make_from_array (<<"bugs", "daffy", "porky">>)
 			l_array.force (l_row, 2)
 
-			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out_csv)
+			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
 		end
 
 	array_ext_int_output_tests
@@ -164,7 +164,7 @@ bugs,daffy,porky
 			create l_row.make_from_array (<<150, 250, 350>>)
 			l_array.force (l_row, 2)
 
-			assert_strings_equal ("array_ext", array_ext_2_string, l_array.out_csv)
+			assert_strings_equal ("array_ext", array_ext_2_string, l_array.out)
 		end
 
 	array_ext_real_output_tests
@@ -178,7 +178,7 @@ bugs,daffy,porky
 			create l_row.make_from_array (<<150.4, 250.5, 350.6>>)
 			l_array.force (l_row, 2)
 
-			assert_strings_equal ("array_ext", array_ext_3_string, l_array.out_csv)
+			assert_strings_equal ("array_ext", array_ext_3_string, l_array.out)
 		end
 
 end

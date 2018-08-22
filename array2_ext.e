@@ -10,13 +10,15 @@ inherit
 			height as row_count,
 			width as column_count
 		undefine
-			print
+			out
 		end
 
 	READABLE_INDEXABLE_EXT
 		undefine
 			is_equal,
 			copy
+		redefine
+			out
 		end
 
 create
@@ -50,7 +52,7 @@ feature -- Setters
 
 feature -- Output
 
-	out_csv: STRING
+	out: STRING
 			-- <Precursor>
 		note
 			details: "[

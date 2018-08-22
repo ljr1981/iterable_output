@@ -7,26 +7,14 @@ deferred class
 inherit
 	ANY
 		redefine
-			print
+			out
 		end
 
 feature -- Output
 
-	print (x: detachable ANY)
+	out: STRING
 			-- <Precursor>
-		do
-			if attached {READABLE_INDEXABLE_EXT} x as al_item then
-				print (al_item.out_csv_common)
-			end
-		end
-
-	out_csv: STRING
-			-- Output of Current in CSV format.
-		deferred
-		end
-
-	out_csv_common: STRING
-			-- Output of Current in common CSV format if Current is {ITERABLE [ANY]}
+			-- Common output for all conforming to {READABLE_INDEXABLE_EXT}.
 		note
 			details: "[
 				Presumes that the array may be of n-dimensions, where additional
@@ -47,7 +35,7 @@ feature -- Output
 					al_current as ic
 				loop
 					if attached {READABLE_INDEXABLE_EXT} ic.item as al_row then
-						Result.append_string_general (al_row.out_csv)
+						Result.append_string_general (al_row.out)
 					elseif is_basic_type (ic.item) and then attached ic.item as al_item then
 						Result.append_string_general (al_item.out); Result.append_character (',')
 					else

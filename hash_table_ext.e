@@ -7,9 +7,9 @@ class
 inherit
 	HASH_TABLE [G, K]
 		undefine
-			print
+			out
 		end
-		
+
 	READABLE_INDEXABLE_EXT
 		undefine
 			is_equal,
@@ -32,14 +32,6 @@ feature {NONE} -- Initialization
 			loop
 				force (ic.item.values, ic.item.key)
 			end
-		end
-
-feature -- Outputs
-
-	out_csv: STRING
-			-- <Precursor>
-		do
-			Result := out_csv_common
 		end
 
 end
