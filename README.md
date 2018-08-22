@@ -57,4 +57,6 @@ READABLE_INDEXABLE_EXT
    STRING_TABLE_EXT [G]
 ```
 
-Each class has an `_EXT` suffix, which denotes the class offers extended or redefined features from its ancestor. For example: The `ARRAY2_EXT [G]` class inherits from `ARRAY2 [G]`, but is "extended" by the facilities of `READABLE_INDEXABLE_EXT` as well as features on the `ARRAY2_EXT [G]` class itself. Moreover—the `ARRAY2_EXT [G]` class adds convenience creation procedures as well as a specialized version of the `out` feature. Please explore the `?_EXT` classes and the `READABLE_INDEXABLE_EXT` class, specifically.
+Each class having an `_EXT` suffix denotes the class offers extended or redefined features from its ancestor. For example: The `ARRAY2_EXT [G]` class inherits from `ARRAY2 [G]` and "extends" by either the facilities of `READABLE_INDEXABLE_EXT` or the features directly on the `ARRAY2_EXT [G]` class itself. Moreover—the `ARRAY2_EXT [G]` class adds convenience creation procedures as well as a specialized version of the `out` feature. 
+
+Please explore the `?_EXT` classes and the `READABLE_INDEXABLE_EXT` class, specifically.
