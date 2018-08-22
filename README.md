@@ -1,6 +1,6 @@
 # Iterable Output
 
-A library to extend collections or list classes to have a CSV-like "out" feature (or output to plain text).
+A library to extend collections or list classes to have a CSV-like `out` feature (or output to plain text).
 
 ## Purpose
 
