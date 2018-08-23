@@ -180,7 +180,7 @@ feature -- Tests
 							<<"moe", "curly", "shemp">>,
 							<<"bugs", "daffy", "porky">>
 						>>)
-			assert_strings_equal ("array_ext_1", array_ext_1_string, l_array2_string.out)
+			assert_strings_equal ("array_ext_1", array_ext_1b_string, l_array2_string.out)
 			create l_array2_integer.make_with_rows (<<
 							<<100, 200, 300>>,
 							<<150, 250, 350>>
@@ -196,11 +196,16 @@ feature -- Tests
 feature {NONE} -- Test Support: Constants
 
 	array_ext_1_string: STRING = "[
+#17 - moe,curly,shemp
+#28 - bugs,daffy,porky
+
+]"
+
+	array_ext_1b_string: STRING = "[
 moe,curly,shemp
 bugs,daffy,porky
 
 ]"
-
 	array_ext_2_string: STRING = "[
 100,200,300
 150,250,350
@@ -221,16 +226,16 @@ feature -- Tests
 			l_array: HASH_TABLE_EXT [ARRAY [STRING], INTEGER]
 		do
 			create l_array.make (2)
-			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 1)
-			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 2)
+			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 17)
+			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 28)
 
 			assert_strings_equal ("hash_table_ext_1", array_ext_1_string, l_array.out)
 
 				-- The convenience feature removes the need to call force multiple times and introduces
 				-- the capacity for loading it with arrays + keys.
 			create l_array.make_with_rows (<<
-							[create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 1],
-							[create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 2]
+							[create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 17],
+							[create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), 28]
 						>>)
 
 			assert_strings_equal ("hash_table_ext_2", array_ext_1_string, l_array.out)
@@ -246,14 +251,14 @@ feature -- Tests
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>))
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>))
 
-			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
+			assert_strings_equal ("array_ext", array_ext_1b_string, l_array.out)
 
 			create l_array.make_with_rows (<<
 						create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>),
 						create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>)
 						>>)
 
-			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
+			assert_strings_equal ("array_ext", array_ext_1b_string, l_array.out)
 		end
 
 	array_ext_string_output_tests
@@ -268,7 +273,7 @@ feature -- Tests
 			create l_row.make_from_array (<<"bugs", "daffy", "porky">>)
 			l_array.force (l_row, 2)
 
-			assert_strings_equal ("array_ext", array_ext_1_string, l_array.out)
+			assert_strings_equal ("array_ext", array_ext_1b_string, l_array.out)
 
 				-- N-dim (x-y-z axis) array does not present well in CSV-ish style.
 			create l_array_3.make_filled (<< <<"a", "b", "c">>, <<"x", "y">> >>, 1, 2)
