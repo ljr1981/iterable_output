@@ -1,5 +1,6 @@
 # Eiffel
 EIFGENs
+exception_trace.log
 
 # Windows image file caches
 Thumbs.db

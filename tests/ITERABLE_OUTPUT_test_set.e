@@ -21,7 +21,7 @@ inherit
 			default_create
 		end
 
-feature -- Tests
+feature -- Tests: Multi-type
 
 	array2_multi_type_output_tests
 			-- Can we successfully create ad-hoc arrays of various type mixtures and successfully output?
@@ -153,6 +153,12 @@ feature -- Tests
 			assert_strings_equal ("stack_test_4", stack_string_1, l_stack_plain.out)
 		end
 
+	string_table_ext_tests
+			--
+		do
+
+		end
+
 feature {NONE} -- Test Support: Constants
 
 	stack_string_1: STRING = "[
@@ -160,12 +166,6 @@ feature {NONE} -- Test Support: Constants
 2:1:200,2:blah2,3:20.199999999999999
 
 ]"
-
-	string_table_ext_tests
-			--
-		do
-
-		end
 
 feature -- Tests
 
@@ -213,6 +213,12 @@ bugs,daffy,porky
 
 ]"
 
+	array_ext_1d_string: STRING = "[
+#PEOPLE - 1:moe,2:curly,3:shemp
+#ANIMATIONS - 1:bugs,2:daffy,3:porky
+
+]"
+
 	array_ext_2_string: STRING = "[
 100,200,300
 150,250,350
@@ -239,6 +245,7 @@ feature -- Tests
 			-- Tests for HASH_TABLE_EXT [ARRAY_EXT [STRING]] and variants.
 		local
 			l_array: HASH_TABLE_EXT [ARRAY [STRING], INTEGER]
+			l_array2: HASH_TABLE_EXT [ARRAY [STRING], STRING]
 		do
 			create l_array.make (2)
 			l_array.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), 17)
@@ -254,6 +261,12 @@ feature -- Tests
 						>>)
 
 			assert_strings_equal ("hash_table_ext_2", array_ext_1_string, l_array.out)
+
+			create l_array2.make (2)
+			l_array2.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), "PEOPLE")
+			l_array2.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), "ANIMATIONS")
+
+			assert_strings_equal ("hash_table_ext_2", array_ext_1d_string, l_array2.out)
 		end
 
 	arrayed_list_ext_string_output_tests
@@ -321,12 +334,6 @@ feature -- Tests
 			assert_strings_equal ("array_ext", array_ext_int_string, l_array.out)
 		end
 
-	array_ext_int_string: STRING = "[
-1:1:100,2:200,3:300
-2:1:150,2:250,3:350
-
-]"
-
 	array_ext_real_output_tests
 			-- Tests for ARRAY_EXT [ARRAY_EXT [REAL]] and variants.
 		local
@@ -340,5 +347,48 @@ feature -- Tests
 
 			assert_strings_equal ("array_ext", array_ext_3_string, l_array.out)
 		end
+
+feature {NONE} -- Test Support: ARRAY_EXT
+
+	array_ext_int_string: STRING = "[
+1:1:100,2:200,3:300
+2:1:150,2:250,3:350
+
+]"
+
+feature -- Tests
+
+	json_tests
+			-- Test of `out' of JSON.
+		local
+			l_array2: HASH_TABLE_EXT [ARRAY [STRING], STRING]
+			l_array2_any: ARRAY2_EXT [ANY]
+		do
+			create l_array2.make (2)
+			l_array2.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"moe", "curly", "shemp">>), "PEOPLE")
+			l_array2.force (create {ARRAY_EXT [STRING]}.make_from_array (<<"bugs", "daffy", "porky">>), "ANIMATIONS")
+
+			assert_strings_equal ("json_1_string", json_1_string, l_array2.out_json)
+
+			create l_array2_any.make_with_rows (<<
+						<<"moe", "curly", "shemp">>,
+						<<"bugs", "daffy", "porky">>
+						>>)
+			assert_strings_equal ("json_2_string", json_2_string, l_array2_any.out_json)
+		end
+
+feature {NONE} -- Support
+
+	json_1_string: STRING = "[
+{"PEOPLE": [ {"1":"moe"},{"2":"curly"},{"3":"shemp"} ],
+"ANIMATIONS": [ {"1":"bugs"},{"2":"daffy"},{"3":"porky"} ]}
+
+]"
+
+	json_2_string: STRING = "[
+{"1": [ {"1":"moe"},{"2":"curly"},{"3":"shemp"} ],
+"2": [ {"1":"bugs"},{"2":"daffy"},{"3":"porky"} ]}
+
+]"
 
 end

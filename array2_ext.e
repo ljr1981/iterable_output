@@ -18,7 +18,8 @@ inherit
 			is_equal,
 			copy
 		redefine
-			out --due to 2-dim specialization requirements
+			out, --due to 2-dim specialization requirements
+			out_json
 		end
 
 create
@@ -100,6 +101,54 @@ feature -- Output
 					Result.append_character ('%N')
 				end
 			end
+		end
+
+	out_json: STRING
+			-- <Precursor>
+		do
+			create Result.make_empty
+			Result.append_character ('{')
+			across
+				1 |..| row_count as ic_row
+			loop
+				Result.append_character ('"')
+				Result.append_string_general (ic_row.item.out)
+				Result.append_character ('"')
+				Result.append_character (':')
+				Result.append_character (' ')
+				Result.append_character ('[')
+				Result.append_character (' ')
+				across
+					1 |..| column_count as ic_col
+				loop
+					Result.append_character ('{')
+					if attached item (ic_row.item, ic_col.item) as al_item and then
+						is_basic_type (al_item)
+					then
+						Result.append_character ('"')
+						Result.append_string_general (ic_col.item.out)
+						Result.append_character ('"')
+						Result.append_character (':')
+						Result.append_character ('"')
+						Result.append_string_general (al_item.out)
+						Result.append_character ('"')
+						Result.append_character ('}')
+						Result.append_character (',')
+					else
+						Result.append_string_general ("n/a")
+					end
+				end
+				if Result [Result.count] = ',' then
+					Result.remove_tail (1)
+					Result.append_character (' ')
+					Result.append_character (']')
+					Result.append_character (',')
+					Result.append_character ('%N')
+				end
+			end
+			Result.remove_tail (2)
+			Result.append_character ('}')
+			Result.append_character ('%N')
 		end
 
 end
