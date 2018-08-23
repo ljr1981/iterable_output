@@ -91,7 +91,7 @@ feature -- Tests
 			l_list_any.put_front ("blah1")
 			l_list_any.put_front (101)
 			l_list_any.put_front (create {DATE}.make (2018, 1, 10))
-			assert_strings_equal ("list_any_1", "01/10/2018,101,blah1%N", l_list_any.out)
+			assert_strings_equal ("list_any_1", "1:01/10/2018,2:101,3:blah1%N", l_list_any.out)
 
 			create l_list_any.make_with_rows (<<
 						<<101, 102, 103>>,
@@ -103,19 +103,19 @@ feature -- Tests
 feature {NONE} -- Test Support: Constants
 
 	linked_list_string_1: STRING = "[
-201,202,203
-101,102,103
+1:1:201,2:202,3:203
+2:1:101,2:102,3:103
 
 ]"
 
 	linked_list_string_2: STRING = "[
-203,202,201,103,102,101
+1:203,2:202,3:201,4:103,5:102,6:101
 
 ]"
 
 	linked_list_string_3: STRING = "[
-101,102,103
-201,202,203
+1:1:101,2:102,3:103
+2:1:201,2:202,3:203
 
 ]"
 
@@ -144,7 +144,7 @@ feature -- Tests
 			l_stack_any.force ("blah1")
 			l_stack_any.force (200)
 			l_stack_any.force (200.99)
-			assert_strings_equal ("stack_test_3", "05/15/2018,blah1,200,200.99000000000001%N", l_stack_any.out)
+			assert_strings_equal ("stack_test_3", "1:05/15/2018,2:blah1,3:200,4:200.99000000000001%N", l_stack_any.out)
 
 			create l_stack_plain.make_with_rows (<<
 							<<100, "blah1", 20.1>>,
@@ -156,8 +156,8 @@ feature -- Tests
 feature {NONE} -- Test Support: Constants
 
 	stack_string_1: STRING = "[
-100,blah1,20.100000000000001
-200,blah2,20.199999999999999
+1:1:100,2:blah1,3:20.100000000000001
+2:1:200,2:blah2,3:20.199999999999999
 
 ]"
 
@@ -180,7 +180,7 @@ feature -- Tests
 							<<"moe", "curly", "shemp">>,
 							<<"bugs", "daffy", "porky">>
 						>>)
-			assert_strings_equal ("array_ext_1", array_ext_1b_string, l_array2_string.out)
+			assert_strings_equal ("array_ext_1", array_ext_1c_string, l_array2_string.out)
 			create l_array2_integer.make_with_rows (<<
 							<<100, 200, 300>>,
 							<<150, 250, 350>>
@@ -190,22 +190,29 @@ feature -- Tests
 							<<100.1, 200.2, 300.3>>,
 							<<150.4, 250.5, 350.6>>
 						>>)
-			assert_strings_equal ("array_ext_3", array_ext_3_string, l_array2_real.out)
+			assert_strings_equal ("array_ext_3", array_ext_3b_string, l_array2_real.out)
 		end
 
 feature {NONE} -- Test Support: Constants
 
 	array_ext_1_string: STRING = "[
-#17 - moe,curly,shemp
-#28 - bugs,daffy,porky
+#17 - 1:moe,2:curly,3:shemp
+#28 - 1:bugs,2:daffy,3:porky
 
 ]"
 
 	array_ext_1b_string: STRING = "[
+1:1:moe,2:curly,3:shemp
+2:1:bugs,2:daffy,3:porky
+
+]"
+
+	array_ext_1c_string: STRING = "[
 moe,curly,shemp
 bugs,daffy,porky
 
 ]"
+
 	array_ext_2_string: STRING = "[
 100,200,300
 150,250,350
@@ -213,10 +220,18 @@ bugs,daffy,porky
 ]"
 
 	array_ext_3_string: STRING = "[
+1:1:100.1,2:200.2,3:300.3
+2:1:150.4,2:250.5,3:350.6
+
+]"
+
+	array_ext_3b_string: STRING = "[
 100.1,200.2,300.3
 150.4,250.5,350.6
 
 ]"
+
+
 
 feature -- Tests
 
@@ -283,10 +298,10 @@ feature -- Tests
 feature {NONE} -- Support: Constants
 
 	array_3_string: STRING = "[
-a,b,c
-x,y
-a,b,c
-x,y
+1:1:1:a,2:b,3:c
+2:1:x,2:y
+2:1:1:a,2:b,3:c
+2:1:x,2:y
 
 ]"
 
@@ -303,8 +318,14 @@ feature -- Tests
 			create l_row.make_from_array (<<150, 250, 350>>)
 			l_array.force (l_row, 2)
 
-			assert_strings_equal ("array_ext", array_ext_2_string, l_array.out)
+			assert_strings_equal ("array_ext", array_ext_int_string, l_array.out)
 		end
+
+	array_ext_int_string: STRING = "[
+1:1:100,2:200,3:300
+2:1:150,2:250,3:350
+
+]"
 
 	array_ext_real_output_tests
 			-- Tests for ARRAY_EXT [ARRAY_EXT [REAL]] and variants.

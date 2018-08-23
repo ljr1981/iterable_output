@@ -31,9 +31,21 @@ feature -- Output
 		do
 			create Result.make_empty
 			if attached {READABLE_INDEXABLE [ANY]} Current as al_current then
+				if attached {HASH_TABLE [ANY, detachable HASHABLE]} al_current as al_hash_table then
+					al_hash_table.start
+				end
 				across
 					al_current as ic
 				loop
+					if attached {HASH_TABLE [ANY, detachable HASHABLE]} al_current as al_hash_table then
+						if attached al_hash_table.key_for_iteration as al_key then
+							Result.append_character ('#')
+							Result.append_string_general (al_key.out)
+							Result.append_string_general (" - ")
+						end
+					else
+						Result.append_string_general (ic.cursor_index.out + ":")
+					end
 					if attached {READABLE_INDEXABLE_EXT} ic.item as al_row then
 						Result.append_string_general (al_row.out)
 						-- Plain ole READABLE_INDEXABLE things might possibly be converted and output.
@@ -61,7 +73,10 @@ feature -- Output
 					else -- Otherwise, we don't want complex outputs.
 						Result.append_string_general ("n/a"); Result.append_character (',')
 					end
-				end
+					if attached {HASH_TABLE [ANY, detachable HASHABLE]} al_current as al_hash_table then
+						al_hash_table.forth
+					end
+			end
 				if Result [Result.count] = ',' then
 					Result.remove_tail (1)
 					Result.append_character ('%N')
