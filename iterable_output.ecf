@@ -14,11 +14,6 @@
 		</capability>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="decimal" location="$ISE_LIBRARY\contrib\library\math\decimal\decimal\decimal.ecf"/>
-		<library name="framework" location="$GITHUB\framework\framework.ecf"/>
-		<library name="html" location="$GITHUB\html\html.ecf"/>
-		<library name="json_ext" location="$GitHub\json_ext\json_ext.ecf"/>
-		<library name="process" location="$ISE_LIBRARY\library\process\process-safe.ecf"/>
-		<library name="randomizer" location="$GITHUB\randomizer\randomizer.ecf"/>
 		<library name="test_extension" location="$GITHUB\test_extension\test_extension.ecf"/>
 		<library name="time" location="$ISE_LIBRARY\library\time\time-safe.ecf"/>
 		<cluster name="iterable_output" location=".\" recursive="true">
